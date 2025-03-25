@@ -175,5 +175,26 @@
 
         startSlideshow();
     </script>
+    <script>
+        function sendHeight() {
+          parent.postMessage({
+            iframeHeight: document.documentElement.scrollHeight
+          }, "*");
+        }
+      
+        // Send initial height
+        window.addEventListener("load", function () {
+          sendHeight();
+      
+          // Also send height after a short delay (for slow-loading elements)
+          setTimeout(sendHeight, 500); 
+          setTimeout(sendHeight, 1000); 
+          setTimeout(sendHeight, 2000); 
+      
+          // Watch for window resize
+          window.addEventListener("resize", sendHeight);
+        });
+      </script>
+      
 </body>
 </html>
